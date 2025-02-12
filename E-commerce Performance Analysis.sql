@@ -1,5 +1,5 @@
 USE mavenfuzzyfactory;
-#1
+--Queries to show the growth in terms of sessions and orders on the website*
 select year(w.created_at) as Year, 
 quarter(w.created_at) as Quarter,
 count(w.website_session_id) as sessions,
@@ -7,7 +7,7 @@ count(o.order_id) as orders
 from website_sessions w left join orders o on w.website_session_id = o.website_session_id
 group by Year, Quarter;
 
-#2
+--Query to measure the company's performance through session-to-order conversion rate, revenue per order, or revenue per session
 select year(w.created_at) as Year,
 quarter(w.created_at) as quarter,
 (count(o.order_id)/count(w.website_session_id)) as session_to_order,
@@ -16,7 +16,7 @@ quarter(w.created_at) as quarter,
 from website_sessions w left join orders o on w.website_session_id = o.website_session_id
 group by Year, quarter;
 
-#3
+--Query to display the growth of different segments by quarter based on orders.
 select year(w.created_at) as Year,
 quarter(w.created_at) as Quarter, 
 count(case when w.utm_source = 'gsearch' and w.utm_campaign = 'brand' and o.order_id is not null then 1 else null end) as gsearch_brand_orders,
@@ -26,7 +26,7 @@ count(case when w.utm_source = 'bsearch' and w.utm_campaign = 'brand' and o.orde
 from website_sessions w left join orders o on w.website_session_id = o.website_session_id
 group by Year, Quarter;
 
-#4
+--Query to display the session-to-order conversion rate for the segments mentioned in the previous requirement.
 select year(w.created_at) as Year,
 quarter(w.created_at) as Quarter, 
 count(case when w.utm_source = 'gsearch' and w.utm_campaign = 'brand' and o.order_id is not null then 1 else null end)/count(distinct w.website_session_id) as gsearch_brand_orders,
@@ -36,7 +36,7 @@ count(case when w.utm_source = 'bsearch' and w.utm_campaign = 'brand' and o.orde
 from website_sessions w left join orders o on w.website_session_id = o.website_session_id
 group by Year, Quarter;
 
-#5
+--Query to display revenue and profit by product, total revenue, and total profit for all products.
 WITH product_data AS (
     SELECT 
         YEAR(o.created_at) AS Year,
@@ -79,7 +79,7 @@ SELECT *
 FROM summary
 ORDER BY Year, Month;
 
-#6
+--Query to analyse new products by tracking the percentage of sessions moving from /products to other pages and to the order page over time.
 create temporary table product_session
 select created_at,
 website_session_id,
@@ -97,7 +97,7 @@ group by   p.created_at,p.website_session_id;
 
 select * from next_product_session;
 
-#6
+--Query to measure the effectiveness of bundled product sales.
 select year(n.created_at) as year,
 month(n.created_at) as month, 
 count(n.website_session_id) as product_page_sessions,
@@ -108,7 +108,7 @@ count(o.order_id)/count(n.website_session_id) as product_to_order_rate
 from next_product_session n left join orders o on n.website_session_id = o.website_session_id
 group by year, month;
 
-#7
+
 
 
 
