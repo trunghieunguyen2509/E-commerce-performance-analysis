@@ -87,9 +87,6 @@ website_pageview_id
 from website_pageviews
 where pageview_url ='/products';
 
-select * from product_session;
-drop table product_session;
-
 create temporary table next_product_session
 select p.created_at, p.website_session_id, min(w.website_pageview_id) as next_page
 from product_session p left join website_pageviews w on p.website_session_id = w.website_session_id and w.created_at > p.created_at
