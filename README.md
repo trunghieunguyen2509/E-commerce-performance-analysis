@@ -19,6 +19,7 @@
  - Evaluate the effectiveness of product bundling was assessed by examining product pairs sold together, especially post-launch of a new main product
 
 **4. Visualisation**
-- ![Dashboard](Eimages/Dashboard.png)
+- ![Dashboard](E-commerce/images/Dashboard.png)
+
 
 
