@@ -94,7 +94,6 @@ group by   p.created_at,p.website_session_id;
 
 select * from next_product_session;
 
---Query to measure the effectiveness of bundled product sales.
 select year(n.created_at) as year,
 month(n.created_at) as month, 
 count(n.website_session_id) as product_page_sessions,
